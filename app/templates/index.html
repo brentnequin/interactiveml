@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>Interactive ML</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/mainpage.css') }}">
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <span class="top">
+        <div class="header"><h1>Interactive ML</h1></div>
+        <div class="toplink">
+            <a href="#about">About</a>
+            <a href="#howtouse">How To Use</a>
+        </div>
+    </span>
+    <br>
+    <div class="content">
+        <div class="chart" id="plot"></div>
+        <div class="menu" id="menu">
+            <ul class="selection" id="inputFields">
+                <p>Number of Clusters:</p>
+                <input type="number" id="kvalue" name="kvalue" value="2">
+            </ul>
+            <br><br>
+            <ul class="selection" id="addPoints">
+                <p>Add Points:</p>
+                <li>
+                    <input type="radio" id="train" name="pointType" checked="checked" />
+                    <label for="train">Train</label>
+                </li>
+                <li>
+                    <input type="radio" id="test" name="pointType"/>
+                    <label for="test">Test</label>
+                </li>
+            </ul>
+            <br><br>
+            <ul class="selection" id="runAlgorithms">
+                <p>Run Algorithm:</p>
+                <button type="button" class="algorithmButton" id="kmeans"><em>k</em>-Means Clustering</button>
+                <button type="button" class="algorithmButton" id="kmedoids"><em>k</em>-Medoids Clustering</button>
+            </ul>
+            <br><br>
+            <ul class="selection" id="plotButtons">
+                <button type="button" id="clearButton">Clear Plot</button>
+            </ul>
+        </div>
+        <script>
+            var plots = {{plot | safe}};
+            Plotly.plot('plot', plots,{});
+        </script>
+        <script src="/static/script.js"></script>
+        
+        <div id="about" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <header class="container">
+                         <a href="#" class="closebtn">×</a>
+                         <h2>About</h2>
+                    </header>
+                    <div class="container">
+                        <p>
+                            Interactive ML is a Python-based web tool designed to visualize machine learning algorithms.
+                            <br><br>
+                            Currently, Interactive ML performs unsupervised algorithms. Plotly was used to produce the graph along with the plotted data.
+                            <br><br>
+                            This web tool is developed by <a href="http://brentnequin.com">Brent Nequin</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+        <div id="howtouse" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <header class="container">
+                        <a href="#" class="closebtn">×</a>
+                        <h2>How To Use</h2>
+                    </header>
+                    <div class="container">
+                        <p>
+                            1. Select the number of clusters.
+                            <br><br>
+                            2. Place training points and testing points on the graph by aiming your cursor on positions on the graph and clicking. Choose between training points and testing points within the menu.
+                            <br><br>
+                            3. Run a clustering algorithm by clicking on the algorithm buttons.
+                            <br><br>
+                            The graph will update by showing the cluster centers and resulting labels of the clustering algorithm. Notice the training points in each cluster have their own color. The testing points will also take the same color of the nearest cluster meaning that it belongs to that cluster.
+                            <br><br>
+                            To hide a trace, click on the trace to be hiden on the legend.
+                            <br><br>
+                            To show only one trace, double click on the trace to be shown on the legend.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

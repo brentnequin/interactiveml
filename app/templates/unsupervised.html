@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+		{% filter markdown %}
+			<script>
+				var plots = {{plot | safe}};
+				Plotly.plot('plot', plots,{});
+			</script>
+		{% endfilter %}
+{% endblock %}
